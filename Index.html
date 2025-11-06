@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm" action="login.php" method="POST">
+            
+            <div id="error-message"></div> <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        </form>
+
+        <p style="text-align: center; margin-top: 1rem;">
+            Belum punya akun? <a href="register.html">Daftar di sini</a>
+        </p>
+
+    </div>
+
+
+    </div>
+
+    <script>
+        // Validasi JavaScript Sederhana
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('error-message');
+
+        loginForm.addEventListener('submit', function(event) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Hentikan pengiriman form jika ada field yang kosong
+            if (username.trim() === '' || password.trim() === '') {
+                event.preventDefault(); // Mencegah form dikirim
+                errorMessage.textContent = 'Username dan password tidak boleh kosong!';
+            } else {
+                errorMessage.textContent = ''; // Kosongkan pesan error jika valid
+            }
+        });
+    </script>
+    </body>
+</html>
