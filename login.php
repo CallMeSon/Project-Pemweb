@@ -1,58 +1,75 @@
 <?php
-// Mulai session di paling atas file
-session_start();
+include 'db_connect.php';
+$error = '';
 
-// Sertakan file koneksi database
-require 'db.php';
+// Jika sudah login, tendang ke index.php
+if (isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit;
+}
 
-// Cek apakah data dikirim menggunakan metode POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // 1. Lindungi dari SQL Injection dengan Prepared Statements
-    $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
-    if ($stmt === false) {
-        die("Error preparing statement: " . $conn->error);
-    }
-
-    $stmt->bind_param("s", $username); // "s" berarti tipenya adalah string
+    // Siapkan statement
+    $stmt = $conn->prepare("SELECT id, password, nama_lengkap FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
     $stmt->execute();
-    $stmt->store_result();
+    $result = $stmt->get_result();
 
-    // Cek apakah pengguna ditemukan
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($hashed_password); // Ambil password yang ter-hash dari database
-        $stmt->fetch();
-
-        // 2. Verifikasi Kata Sandi
-        // Gunakan password_verify() untuk membandingkan password yang diinput
-        // dengan hash yang ada di database.
-        if (password_verify($password, $hashed_password)) {
-            
-            // Kata sandi benar!
-            // Simpan data pengguna di session
-            $_SESSION['loggedin'] = true;
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
+        
+        // Verifikasi password yang di-hash
+        if (password_verify($password, $user['password'])) {
+            // Password benar! Simpan data ke session
+            $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $username;
-
-            // Alihkan pengguna ke halaman selamat datang (welcome.php)
-            header("Location: welcome.php");
-            exit; // Pastikan skrip berhenti setelah redirect
-
+            $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
+            
+            // Alihkan ke halaman utama
+            header("Location: index.php");
+            exit;
         } else {
-            // Kata sandi salah
-            echo "Username atau password salah.";
-            // Anda bisa redirect kembali ke login dengan pesan error
-            // header("Location: index.html?error=1");
+            $error = "Username atau password salah.";
         }
     } else {
-        // Pengguna tidak ditemukan
-        echo "Username atau password salah.";
+        $error = "Username atau password salah.";
     }
-
     $stmt->close();
+    $conn->close();
 }
-
-$conn->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Kedai Kopi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login Pembeli</h2>
+        
+        <?php if ($error): ?><p class="error-msg"><?php echo $error; ?></p><?php endif; ?>
+        <?php if (isset($_GET['pesan'])): ?><p class="success-msg"><?php echo htmlspecialchars($_GET['pesan']); ?></p><?php endif; ?>
+
+        <form action="login.php" method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <p style="text-align: center; margin-top: 10px;">
+                Belum punya akun? <a href="register.php">Daftar di sini</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>

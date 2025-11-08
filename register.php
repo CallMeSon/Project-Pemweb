@@ -1,71 +1,80 @@
 <?php
-// Sertakan file koneksi database
-require 'db.php';
+include 'db_connect.php';
+$error = '';
+$success = '';
 
-// Cek apakah data dikirim menggunakan metode POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    // 1. Ambil data dari form
+    // Ambil data dari form
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
+    $nama_lengkap = $_POST['nama_lengkap'];
+    $alamat = $_POST['alamat'];
+    $telepon = $_POST['telepon'];
 
-    // 2. Validasi Sisi Server (Server-Side)
-    
-    // Cek apakah ada field yang kosong
-    if (empty($username) || empty($password) || empty($confirm_password)) {
-        header("Location: register.html?error=empty");
-        exit;
+    // HASH password - JANGAN PERNAH SIMPAN PLAIN TEXT
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+    // Gunakan prepared statement untuk keamanan
+    try {
+        $stmt = $conn->prepare("INSERT INTO users (username, password, nama_lengkap, alamat, telepon) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $username, $hashed_password, $nama_lengkap, $alamat, $telepon);
+        
+        if ($stmt->execute()) {
+            $success = "Registrasi berhasil! Silakan <a href='login.php'>login di sini</a>.";
+        }
+        $stmt->close();
+    } catch (mysqli_sql_exception $e) {
+        // Tangani error jika username sudah ada (karena ada UNIQUE constraint)
+        if ($e->getCode() == 1062) { // 1062 = Duplicate entry
+            $error = "Username '{$username}' sudah digunakan. Silakan pilih username lain.";
+        } else {
+            $error = "Registrasi gagal: " . $e->getMessage();
+        }
     }
-
-    // Cek apakah password dan konfirmasi password sama
-    if ($password !== $confirm_password) {
-        header("Location: register.html?error=password_mismatch");
-        exit;
-    }
-
-    // 3. Cek apakah username sudah ada (Gunakan Prepared Statements)
-    $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        // Username sudah terdaftar
-        header("Location: register.html?error=username_taken");
-        exit;
-    }
-    
-    $stmt->close();
-
-    // 4. Hash Kata Sandi (PENTING!)
-    // Gunakan PASSWORD_DEFAULT untuk algoritma hashing terkuat yang tersedia
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // 5. Masukkan pengguna baru ke database (Gunakan Prepared Statements)
-    $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    if ($stmt === false) {
-        die("Error preparing statement: " . $conn->error);
-    }
-    
-    $stmt->bind_param("ss", $username, $hashed_password);
-
-    if ($stmt->execute()) {
-        // Registrasi berhasil, alihkan ke halaman login
-        // Kita bisa tambahkan pesan sukses di halaman login
-        header("Location: index.html?success=registered");
-        exit;
-    } else {
-        // Gagal mengeksekusi
-        echo "Error: " . $stmt->error;
-    }
-
-    $stmt->close();
     $conn->close();
-
-} else {
-    // Jika diakses langsung tanpa POST, alihkan ke halaman registrasi
-    header("Location: register.html");
-    exit;
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrasi - Kedai Kopi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Registrasi Akun Baru</h2>
+        
+        <?php if ($error): ?><p class="error-msg"><?php echo $error; ?></p><?php endif; ?>
+        <?php if ($success): ?><p class="success-msg"><?php echo $success; ?></p><?php endif; ?>
+
+        <form action="register.php" method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="nama_lengkap">Nama Lengkap:</label>
+                <input type="text" id="nama_lengkap" name="nama_lengkap" required>
+            </div>
+            <div class="form-group">
+                <label for="alamat">Alamat:</label>
+                <textarea id="alamat" name="alamat" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="telepon">No. Telepon:</label>
+                <input type="tel" id="telepon" name="telepon">
+            </div>
+            <button type="submit" class="btn">Daftar</button>
+            <p style="text-align: center; margin-top: 10px;">
+                Sudah punya akun? <a href="login.php">Login di sini</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>
