@@ -9,6 +9,6 @@ session_unset();
 session_destroy();
 
 // Alihkan kembali ke halaman login
-header("Location: login.php");
+header("Location: auth.php");
 exit;
 ?>

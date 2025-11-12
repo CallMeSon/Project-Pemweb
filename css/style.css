@@ -1,194 +1,247 @@
-/* css/style.css */
+/* css/style.css - Versi yang Ditingkatkan */
+
+/* --- Dasar & Layout --- */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5; /* Abu-abu terang, lebih lembut */
+    color: #333;
     margin: 0;
     line-height: 1.6;
 }
-.container { padding: 20px; max-width: 1200px; margin: auto; }
-
-/* Login & Register Form */
-.login-container {
-    width: 350px;
-    margin: 80px auto;
-    padding: 25px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+.container { 
+    padding: 20px; 
+    max-width: 1200px; 
+    margin: auto; 
 }
-.login-container h2 { text-align: center; color: #333; margin-top: 0; }
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-.form-group input[type="text"],
-.form-group input[type="password"],
-.form-group input[type="tel"],
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-.form-group textarea { resize: vertical; }
+h2 { color: #4b3832; /* Cokelat gelap */ }
 
-/* Tombol (Buttons) */
+
+
+/* --- Tombol (Buttons) --- */
 .btn {
     display: inline-block;
-    background: #5cb85c;
+    background: #a0522d; /* Warna utama: Sienna (Cokelat) */
     color: #fff;
-    padding: 10px 15px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 600;
     width: 100%;
     box-sizing: border-box;
     text-align: center;
+    transition: background-color 0.3s, transform 0.1s;
 }
-.btn-logout { background: #d9534f; }
-.btn:hover { opacity: 0.9; }
-/* Ubah agar tombol tidak 100% width di navbar */
-.navbar .btn { width: auto; }
+.btn-logout { 
+    background: #c0392b; /* Merah untuk Logout */
+    width: auto;
+}
+.btn:hover { 
+    background-color: #8b4513; /* Cokelat gelap saat hover */
+}
+.btn:active {
+    transform: scale(0.98);
+}
+.navbar .btn { width: auto; padding: 8px 15px; } /* Ukuran tombol di navbar */
 
-/* Pesan Error & Sukses */
+/* --- Pesan Error & Sukses --- */
 .error-msg {
-    color: #d9534f;
-    background: #f9dadd;
-    padding: 10px;
-    border-radius: 4px;
+    color: #c0392b;
+    background: #fdeaea;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #c0392b;
     text-align: center;
+    margin-bottom: 15px;
 }
 .success-msg {
-    color: #5cb85c;
-    background: #dff0d8;
-    padding: 10px;
-    border-radius: 4px;
+    color: #27ae60;
+    background: #eafdeb;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #27ae60;
     text-align: center;
+    margin-bottom: 15px;
 }
 
-/* Navbar */
+/* --- Navbar --- */
 .navbar {
-    background: #333;
+    background: #4b3832; /* Cokelat tua untuk background */
     color: #fff;
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-.navbar h1 { margin: 0; font-size: 24px; }
-.navbar nav { display: flex; align-items: center; gap: 15px; }
-.navbar nav span { font-weight: bold; }
-.navbar nav a { color: #fff; text-decoration: none; }
-.navbar nav a.btn { color: #fff; } /* Pastikan tombol di nav putih */
+.navbar h1 { margin: 0; font-size: 28px; font-weight: 700; }
+.navbar nav { display: flex; align-items: center; gap: 20px; }
+.navbar nav span { 
+    font-weight: 500; 
+    color: #f0e68c; /* Warna emas/kuning lembut */
+    font-size: 1.1em;
+}
+.navbar nav a { 
+    color: #fff; 
+    text-decoration: none; 
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.navbar nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.navbar nav a.btn { color: #fff; background: #a0522d; }
 
-/* Filter Kategori */
+/* --- Filter Kategori --- */
 .category-filters {
-    margin-bottom: 20px;
+    margin: 20px 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 .btn-filter {
     display: inline-block;
-    padding: 8px 15px;
-    background-color: #eee;
-    color: #333;
-    border-radius: 20px;
+    padding: 10px 18px;
+    background-color: #ede0d4; /* Warna krem lembut */
+    color: #4b3832;
+    border-radius: 25px;
     text-decoration: none;
-    font-size: 14px;
-    transition: background-color 0.3s;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.1s;
 }
-.btn-filter:hover { background-color: #ddd; }
+.btn-filter:hover { 
+    background-color: #e2c0a9; 
+    transform: translateY(-1px);
+}
 .btn-filter.active {
-    background-color: #009879;
+    background-color: #a0522d; /* Warna utama yang kuat */
     color: #fff;
-    font-weight: bold;
+    font-weight: 600;
 }
 
-/* Grid Produk */
+/* --- Grid Produk --- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Ukuran kartu sedikit lebih besar */
+    gap: 25px;
 }
 .product-card {
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    overflow: hidden; /* Agar gambar tidak keluar card */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     position: relative;
 }
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
 .product-card img {
     width: 100%;
-    height: 220px;
+    height: 250px; /* Tinggi gambar ditingkatkan */
     object-fit: cover;
 }
-.product-card h3 { padding: 0 15px; margin: 15px 0 10px 0; }
-.product-card p { padding: 0 15px; flex-grow: 1; font-size: 14px; color: #555; }
+.product-card h3 { 
+    padding: 0 15px; 
+    margin: 15px 0 5px 0; 
+    color: #4b3832;
+}
+.product-card p { 
+    padding: 0 15px; 
+    flex-grow: 1; 
+    font-size: 14px; 
+    color: #666; 
+}
 .product-card .price {
-    font-size: 1.2em;
+    font-size: 1.4em; /* Ukuran harga lebih besar */
     font-weight: bold;
-    color: #333;
+    color: #a0522d; /* Harga menggunakan warna aksen */
     padding: 10px 15px;
 }
 .product-card form {
     padding: 15px;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid #eee;
     display: flex;
     gap: 10px;
+    align-items: center;
 }
-.product-card form input[type="number"] { width: 60px; }
-.product-card .btn { width: auto; flex-grow: 1; }
+.product-card form input[type="number"] { 
+    width: 60px; 
+    text-align: center;
+    border-radius: 4px;
+}
+.product-card .btn { width: auto; flex-grow: 1; padding: 8px 15px; }
 .product-category {
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: #4b3832; /* Latar belakang kategori cokelat tua */
     color: #fff;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
 }
 
-/* Tabel (untuk Keranjang & Dashboard) */
+/* --- Tabel (untuk Keranjang & Dashboard) --- */
 .styled-table {
     border-collapse: collapse;
     width: 100%;
-    margin: 20px 0;
+    margin: 25px 0;
     font-size: 16px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden; /* Penting untuk border-radius */
 }
 .styled-table thead tr {
-    background-color: #009879;
+    background-color: #a0522d; /* Warna kepala tabel */
     color: #ffffff;
     text-align: left;
 }
 .styled-table th, .styled-table td {
-    padding: 12px 15px;
+    padding: 15px;
 }
 .styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
 }
-.styled-table tbody tr:nth-of-type(even) { background-color: #f3f3f3; }
-.styled-table tbody tr:last-of-type { border-bottom: 2px solid #009879; }
-.styled-table tfoot td { font-weight: bold; }
+.styled-table tbody tr:nth-of-type(even) { background-color: #fcfcfc; }
+.styled-table tbody tr:hover { background-color: #f5e8e1; } /* Highlight saat hover */
+.styled-table tbody tr:last-of-type { border-bottom: 3px solid #a0522d; }
+.styled-table tfoot td { 
+    font-weight: 700; 
+    background-color: #f7f7f7;
+    border-top: 1px solid #ddd;
+}
 
-/* Halaman Checkout */
+/* --- Halaman Checkout --- */
 .checkout-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1.5fr; /* Kolom detail lebih besar */
     gap: 30px;
     background: #fff;
-    padding: 25px;
-    border-radius: 8px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
-.checkout-details, .checkout-summary { padding: 15px; }
+.checkout-details, .checkout-summary { padding: 10px; }
 .checkout-details { border-right: 1px solid #eee; }
+.checkout-summary h3 { color: #a0522d; margin-top: 0; }
+
 @media (max-width: 768px) {
     .checkout-container { grid-template-columns: 1fr; }
     .checkout-details { border-right: none; border-bottom: 1px solid #eee; }
+    .navbar { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .navbar nav { margin-top: 5px; }
 }

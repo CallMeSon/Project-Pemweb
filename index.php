@@ -34,12 +34,10 @@ $result_categories = $conn->query("SELECT id, nama_kategori FROM categories ORDE
         <nav>
             <?php if ($is_logged_in): ?>
                 <span>Halo, <?php echo htmlspecialchars($_SESSION['nama_lengkap']); ?>!</span>
-                <a href="dashboard_pembeli.php" class="btn">Pesanan Saya</a>
                 <a href="cart.php" class="btn">Keranjang</a>
                 <a href="logout.php" class="btn btn-logout">Logout</a>
             <?php else: ?>
-                <a href="login.php" class="btn">Login</a>
-                <a href="register.php" class="btn">Register</a>
+                <a href="auth.php" class="btn">Login</a>
             <?php endif; ?>
         </nav>
     </header>

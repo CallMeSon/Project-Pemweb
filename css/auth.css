@@ -1,0 +1,182 @@
+/* css/auth.css - Styling untuk Halaman Login & Register */
+
+.auth-wrapper {
+    width: 450px;
+    margin: 80px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+    border-top: 5px solid #a0522d;
+}
+
+.auth-tabs {
+    display: flex;
+    background: #f5f5f5;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 18px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    color: #666;
+    border: none;
+    background: transparent;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.auth-tab.active {
+    color: #a0522d;
+    background: #fff;
+}
+
+.auth-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #a0522d;
+}
+
+.auth-tab:hover:not(.active) {
+    background: #ececec;
+}
+
+.auth-content {
+    padding: 35px 40px;
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+    animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.auth-title {
+    text-align: center;
+    color: #4b3832;
+    margin-bottom: 25px;
+    font-size: 1.6em;
+}
+
+.auth-form .form-group {
+    margin-bottom: 18px;
+}
+
+.auth-form .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #5d4037;
+    font-size: 14px;
+}
+
+.auth-form .form-group input[type="text"],
+.auth-form .form-group input[type="password"],
+.auth-form .form-group input[type="tel"],
+.auth-form .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.auth-form .form-group input:focus,
+.auth-form .form-group textarea:focus {
+    border-color: #a0522d;
+    box-shadow: 0 0 5px rgba(160, 82, 45, 0.3);
+    outline: none;
+}
+
+.auth-form .form-group textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 13px;
+    background: #a0522d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background: #8b4513;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.message {
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.message.error {
+    color: #c0392b;
+    background: #fdeaea;
+    border: 1px solid #c0392b;
+}
+
+.message.success {
+    color: #27ae60;
+    background: #eafdeb;
+    border: 1px solid #27ae60;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .auth-wrapper {
+        width: 90%;
+        margin: 40px auto;
+    }
+    
+    .auth-content {
+        padding: 25px 20px;
+    }
+    
+    .auth-tab {
+        padding: 15px 10px;
+        font-size: 15px;
+    }
+    
+    .auth-title {
+        font-size: 1.4em;
+    }
+}
