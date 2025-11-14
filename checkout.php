@@ -38,7 +38,6 @@ if (!empty($cart)) {
 <html lang="id">
 <head>
     <title>Checkout - Kedai Kopi</title>
-    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="navbar">
