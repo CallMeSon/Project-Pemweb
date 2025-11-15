@@ -108,6 +108,7 @@ $conn->close();
                         <input type="password" id="password" name="password" required>
                     </div>
                     <button type="submit" name="login" class="btn-submit">Masuk</button>
+                    <a href="index.php" class="back">Kembali</a>
                 </form>
             </div>
             
@@ -136,6 +137,7 @@ $conn->close();
                         <input type="tel" id="telepon" name="telepon">
                     </div>
                     <button type="submit" name="register" class="btn-submit">Daftar Sekarang</button>
+                    <a href="index.php" class="back">Kembali</a>
                 </form>
             </div>
         </div>
