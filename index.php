@@ -32,26 +32,10 @@ $result_categories = $conn->query("SELECT id, nama_kategori FROM categories ORDE
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navbar Sticky -->
-    <header class="navbar" id="navbar">
-        <div class="navbar-container">
-            <div class="navbar-brand">
-                <span class="logo-icon">☕</span>
-                <h1>Kedai Kopi</h1>
-            </div>
-            <nav class="navbar-menu">
-                <?php if ($is_logged_in): ?>
-                    <span class="user-greeting">Halo, <?php echo htmlspecialchars($_SESSION['nama_lengkap']); ?>!</span>
-                    <a href="cart.php" class="btn btn-cart">
-                        <span class="cart-icon">🛒</span> Keranjang
-                    </a>
-                    <a href="logout.php" class="btn btn-logout">Logout</a>
-                <?php else: ?>
-                    <a href="auth.php" class="btn btn-login">Login</a>
-                <?php endif; ?>
-            </nav>
-        </div>
-    </header>
+    <!-- Navbar -->
+     <?php 
+      include 'template/navbar.php';
+     ?> 
 
     <!-- Hero Banner -->
     <section class="hero-banner">
@@ -100,7 +84,9 @@ $result_categories = $conn->query("SELECT id, nama_kategori FROM categories ORDE
             ?>
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="<?php echo htmlspecialchars($row['gambar_url']); ?>" alt="<?php echo htmlspecialchars($row['nama_produk']); ?>">
+                            <a href="product.php?id=<?php echo $row['id']; ?>" class="product-image-link">
+                                <img src="<?php echo htmlspecialchars($row['gambar_url']); ?>" alt="<?php echo htmlspecialchars($row['nama_produk']); ?>">
+                            </a>
                             <span class="product-category"><?php echo htmlspecialchars($row['nama_kategori']); ?></span>
                         </div>
                         <div class="product-info">
@@ -133,7 +119,6 @@ $result_categories = $conn->query("SELECT id, nama_kategori FROM categories ORDE
     <!-- Error Modal -->
     <div id="errorModal" class="modal">
         <div class="modal-content modal-error">
-            <span class="close" onclick="closeErrorModal()">&times;</span>
             <h3 id="errorTitle">⚠️ Perhatian</h3>
             <p id="errorMessage"></p>
             <div class="error-buttons">
@@ -146,7 +131,6 @@ $result_categories = $conn->query("SELECT id, nama_kategori FROM categories ORDE
     <!-- Quantity Modal Popup -->
     <div id="qtyModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeQtyModal()">&times;</span>
             <h3 id="modalProductName"></h3>
             <div class="quantity-control-modal">
                 <button type="button" class="qty-btn minus" onclick="decreaseQtyModal()">-</button>
@@ -158,12 +142,9 @@ $result_categories = $conn->query("SELECT id, nama_kategori FROM categories ORDE
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2024 Kedai Kopi. Semua hak cipta dilindungi.</p>
-            <p>Dibuat dengan ❤️ dan ☕</p>
-        </div>
-    </footer>
+     <?php
+         include 'template/footer.html';
+     ?> 
 
     <script src="javascript/index.js"></script>
 </body>
