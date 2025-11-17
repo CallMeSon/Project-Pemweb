@@ -16,20 +16,33 @@ $stmt_user->execute();
 $user_data = $stmt_user->get_result()->fetch_assoc();
 $stmt_user->close();
 
-// Ambil ringkasan keranjang (hanya total)
+// Ambil detail produk di keranjang
 $cart = $_SESSION['cart'];
+$cart_products = [];
 $total_harga = 0;
+$total_items = 0;
+
 if (!empty($cart)) {
     $product_ids = array_keys($cart);
     $ids_string = implode(',', $product_ids);
-    $sql = "SELECT id, harga FROM products WHERE id IN ($ids_string)";
+    $sql = "SELECT id, nama_produk, harga, gambar_url FROM products WHERE id IN ($ids_string)";
     $result = $conn->query($sql);
-    $harga_db = [];
+    
     while($row = $result->fetch_assoc()) {
-        $harga_db[$row['id']] = $row['harga'];
-    }
-    foreach ($cart as $id => $qty) {
-        $total_harga += ($harga_db[$id] ?? 0) * $qty;
+        $quantity = $cart[$row['id']];
+        $subtotal = $row['harga'] * $quantity;
+        
+        $cart_products[] = [
+            'id' => $row['id'],
+            'nama_produk' => $row['nama_produk'],
+            'harga' => $row['harga'],
+            'gambar_url' => $row['gambar_url'],
+            'quantity' => $quantity,
+            'subtotal' => $subtotal
+        ];
+        
+        $total_harga += $subtotal;
+        $total_items += $quantity;
     }
 }
 ?>
@@ -37,41 +50,98 @@ if (!empty($cart)) {
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Kedai Kopi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/checkout.css">
 </head>
 <body>
     <header class="navbar">
-        <h1>Konfirmasi Checkout</h1>
-        <nav><a href="cart.php" class="btn">Kembali ke Keranjang</a></nav>
+        <div class="navbar-container">
+            <h1>💳 Konfirmasi Checkout</h1>
+            <nav>
+                <a href="cart.php" class="btn">← Kembali ke Keranjang</a>
+            </nav>
+        </div>
     </header>
 
     <main class="container">
         <div class="checkout-container">
+            <!-- LEFT SIDE: Alamat Pengiriman -->
             <div class="checkout-details">
-                <h3>Alamat Pengiriman</h3>
-                <p><strong>Nama:</strong> <?php echo htmlspecialchars($user_data['nama_lengkap']); ?></p>
-                <p><strong>Telepon:</strong> <?php echo htmlspecialchars($user_data['telepon']); ?></p>
-                <p><strong>Alamat:</strong><br><?php echo nl2br(htmlspecialchars($user_data['alamat'])); ?></p>
+                <h3>📍 Alamat Pengiriman</h3>
+                
+                <div class="info-group">
+                    <span class="info-label">Nama Lengkap</span>
+                    <div class="info-value">
+                        <?php echo htmlspecialchars($user_data['nama_lengkap'] ?? 'Belum diisi'); ?>
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <span class="info-label">Nomor Telepon</span>
+                    <div class="info-value">
+                        <?php echo htmlspecialchars($user_data['telepon'] ?? 'Belum diisi'); ?>
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <span class="info-label">Alamat Lengkap</span>
+                    <div class="info-value">
+                        <?php echo nl2br(htmlspecialchars($user_data['alamat'] ?? 'Belum diisi')); ?>
+                    </div>
+                </div>
             </div>
             
+            <!-- RIGHT SIDE: Ringkasan Pesanan -->
             <div class="checkout-summary">
-                <h3>Ringkasan Pesanan</h3>
-                <p>Jumlah Item: <?php echo count($cart); ?> jenis produk</p>
-                <h4 style="margin: 0;">Total Pembayaran:</h4>
-                <h2 style="margin: 0; color: #009879;">Rp <?php echo number_format($total_harga, 0, ',', '.'); ?></h2>
+                <h3>🛒 Ringkasan Pesanan</h3>
                 
-                <p>
-                    Ini adalah transaksi sederhana. Dengan mengklik tombol di bawah, pesanan Anda akan dicatat
-                    sebagai "Pending" dan Anda akan diarahkan ke halaman "Pesanan Saya".
-                </p>
+                <!-- Daftar Produk -->
+                <div class="product-list">
+                    <?php foreach ($cart_products as $product): ?>
+                        <div class="product-item">
+                            <img src="<?php echo htmlspecialchars($product['gambar_url']); ?>" 
+                                 alt="<?php echo htmlspecialchars($product['nama_produk']); ?>"
+                                 class="product-thumb">
+                            <div class="product-details">
+                                <div class="product-name"><?php echo htmlspecialchars($product['nama_produk']); ?></div>
+                                <div class="product-price">Rp <?php echo number_format($product['harga'], 0, ',', '.'); ?> × <?php echo $product['quantity']; ?></div>
+                            </div>
+                            <div class="product-subtotal">
+                                Rp <?php echo number_format($product['subtotal'], 0, ',', '.'); ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <div class="item-count">
+                    <strong>Total:</strong> <?php echo $total_items; ?> item dari <?php echo count($cart); ?> jenis produk
+                </div>
+
+                <div class="total-section">
+                    <div class="total-label">Total Pembayaran</div>
+                    <div class="total-price">Rp <?php echo number_format($total_harga, 0, ',', '.'); ?></div>
+                </div>
                 
-                <form action="checkout_process.php" method="POST">
-                    <button type="submit" class="btn" style="width: 100%; font-size: 1.3em; padding: 20px;">
+                <form action="checkout_process.php" method="POST" onsubmit="return confirmCheckout()">
+                    <button type="submit" class="btn">
                         Konfirmasi & Buat Pesanan
                     </button>
                 </form>
             </div>
         </div>
     </main>
+
+    <footer>
+        <?php include 'template/footer.html' ?>
+    </footer>
+
+    <script>
+        function confirmCheckout() {
+            return confirm('Apakah Anda yakin ingin membuat pesanan ini?\n\nTotal: Rp <?php echo number_format($total_harga, 0, ',', '.'); ?>');
+        }
+    </script>
 </body>
 </html>
