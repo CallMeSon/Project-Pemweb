@@ -52,7 +52,6 @@ if (!empty($cart)) {
                 <p><strong>Nama:</strong> <?php echo htmlspecialchars($user_data['nama_lengkap']); ?></p>
                 <p><strong>Telepon:</strong> <?php echo htmlspecialchars($user_data['telepon']); ?></p>
                 <p><strong>Alamat:</strong><br><?php echo nl2br(htmlspecialchars($user_data['alamat'])); ?></p>
-                <small>(Untuk mengubah alamat, silakan ubah di halaman profil Anda)</small>
             </div>
             
             <div class="checkout-summary">

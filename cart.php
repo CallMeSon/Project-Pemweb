@@ -37,18 +37,11 @@ if (!empty($cart)) {
 <html lang="id">
 <head>
     <title>Keranjang Belanja - Kedai Kopi</title>
-    <link rel="stylesheet" href="css/style.css">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/cart.css">
 </head>
 <body>
-    <header class="navbar">
-        <h1>Keranjang Belanja</h1>
-        <nav>
-            <a href="index.php" class="btn">Lanjut Belanja</a>
-            <?php if ($is_logged_in): ?>
-                <a href="logout.php" class="btn btn-logout">Logout</a>
-            <?php endif; ?>
-        </nav>
-    </header>
+    <?php include 'template/navbar.php' ?>
 
     <main class="container">
         <?php if (empty($cart_products)): ?>
@@ -86,7 +79,7 @@ if (!empty($cart)) {
                             <form action="cart_action.php" method="POST" style="display: inline;">
                                 <input type="hidden" name="action" value="remove">
                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                <button type="submit" class="btn btn-logout">Hapus</button>
+                                <button type="submit" class="btn btn-delete">Hapus</button>
                             </form>
                         </td>
                     </tr>
@@ -106,5 +99,9 @@ if (!empty($cart)) {
             
         <?php endif; ?>
     </main>
+
+    <footer>
+    <?php include 'template/footer.html' ?>
+    </footer>
 </body>
 </html>
