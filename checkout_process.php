@@ -2,6 +2,8 @@
 // checkout_process.php
 include 'db_connect.php';
 
+
+
 // Pastikan user login dan keranjang tidak kosong
 if (!isset($_SESSION['user_id']) || empty($_SESSION['cart'])) {
     header("Location: index.php");
@@ -64,7 +66,7 @@ try {
     $conn->close();
 
     // 6. Alihkan ke halaman "Pesanan Saya" (dashboard pembeli)
-    header("Location: dashboard_pembeli.php?status=sukses");
+    header("Location: pesanan.php?status=sukses");
     exit;
 
 } catch (Exception $e) {

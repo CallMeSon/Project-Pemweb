@@ -35,6 +35,23 @@ body {
     align-items: center;
 }
 
+.navbar-brand a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navbar-brand a h1 {
+    margin: 0;
+    margin-left: 10px; 
+    font-size: 1.5em; 
+}
+
+.navbar-brand a .logo-icon {
+    font-size: 2em; 
+    margin: 0; 
+}
+
 .navbar-brand {
     display: flex;
     align-items: center;
@@ -937,6 +954,8 @@ body {
 
 /* ===== FOOTER ===== */
 .footer {
+    flex-shrink: 0;
+    margin-top: auto;
     background: linear-gradient(135deg, #6B4423 0%, #8B5A3C 100%);
     color: white;
     text-align: center;

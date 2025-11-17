@@ -1,0 +1,416 @@
+/* ===== GENERAL STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ===== MAIN CONTAINER ===== */
+main.container {
+    flex: 1 0 auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    margin-top: 80px;
+    margin-bottom: 2rem;
+}
+
+/* ===== PAGE HEADER ===== */
+main.container > h2 {
+    font-size: 2.5rem;
+    color: #6B4423;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+main.container > p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+main.container > p a {
+    color: #6B4423;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+main.container > p a:hover {
+    color: #8B5A3C;
+    text-decoration: underline;
+}
+
+/* ===== EMPTY CART STATE ===== */
+.empty-cart {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ===== STYLED TABLE ===== */
+.styled-table {
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    border-collapse: collapse;
+    animation: fadeIn 0.5s ease;
+}
+
+.styled-table thead {
+    background: linear-gradient(135deg, #6B4423 0%, #8B5A3C 100%);
+    color: white;
+}
+
+.styled-table thead tr th {
+    padding: 1.2rem 1rem;
+    font-weight: 600;
+    text-align: left;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.styled-table tbody tr:hover {
+    background: #f8f9fa;
+    transform: scale(1.01);
+}
+
+.styled-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.styled-table tbody td {
+    padding: 1.5rem 1rem;
+    vertical-align: middle;
+}
+
+.styled-table tbody td img {
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.styled-table tbody td img:hover {
+    transform: scale(1.1);
+}
+
+/* ===== TFOOT (TOTAL SECTION) ===== */
+.styled-table tfoot {
+    background: #f8f9fa;
+    border-top: 3px solid #6B4423;
+}
+
+.styled-table tfoot tr td {
+    padding: 1.5rem 1rem;
+    font-size: 1.1rem;
+}
+
+/* ===== FORM INPUT IN TABLE ===== */
+.styled-table input[type="number"] {
+    width: 60px;
+    padding: 0.5rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.styled-table input[type="number"]:focus {
+    outline: none;
+    border-color: #6B4423;
+    box-shadow: 0 0 0 3px rgba(107, 68, 35, 0.1);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    padding: 0.6rem 1.5rem;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.styled-table .btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    margin: 0 0.3rem;
+}
+
+.btn-primary,
+.styled-table .btn:not(.btn-logout) {
+    background: linear-gradient(135deg, #6B4423 0%, #8B5A3C 100%);
+    color: white;
+}
+
+.btn-primary:hover,
+.styled-table .btn:not(.btn-logout):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(107, 68, 35, 0.3);
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: #6B4423;
+}
+
+.btn-delete:hover {
+    background: #6B4423;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+}
+
+/* ===== CHECKOUT SECTION ===== */
+div[style*="text-align: right"] {
+    margin-top: 2rem;
+    text-align: right !important;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+div[style*="text-align: right"] .btn {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+div[style*="text-align: right"] .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.footer {
+    background: linear-gradient(135deg, #6B4423 0%, #8B5A3C 100%);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    opacity: 0.95;
+}
+
+.footer-content p:first-child {
+    font-weight: 500;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    main.container {
+        padding: 1rem;
+        margin-top: 70px;
+    }
+
+    main.container > h2 {
+        font-size: 2rem;
+    }
+
+    .styled-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .styled-table thead {
+        display: none;
+    }
+
+    .styled-table tbody tr {
+        display: block;
+        margin-bottom: 1.5rem;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 1rem;
+    }
+
+    .styled-table tbody td {
+        display: block;
+        text-align: left;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid #f0f0f0;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .styled-table tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .styled-table tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 45%;
+        padding-left: 1rem;
+        font-weight: 600;
+        color: #6B4423;
+    }
+
+    .styled-table tbody td:first-child {
+        font-weight: 600;
+        font-size: 1.1rem;
+        padding-left: 0;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #6B4423;
+        margin-bottom: 0.5rem;
+    }
+
+    .styled-table tbody td:first-child::before {
+        display: none;
+    }
+
+    .styled-table tfoot tr {
+        display: block;
+        padding: 1rem;
+    }
+
+    .styled-table tfoot td {
+        display: block;
+        text-align: center !important;
+        padding: 0.5rem 0;
+    }
+
+    div[style*="text-align: right"] {
+        text-align: center !important;
+    }
+
+    div[style*="text-align: right"] .btn {
+        width: 100%;
+        padding: 1.2rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    main.container > h2 {
+        font-size: 1.5rem;
+    }
+
+    .styled-table tbody td img {
+        width: 40px !important;
+        margin-right: 5px !important;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    div[style*="text-align: right"] .btn {
+        font-size: 1rem;
+        padding: 1rem 1.5rem;
+    }
+
+    .footer {
+        padding: 1.5rem;
+    }
+
+    .footer-content p {
+        font-size: 0.9rem;
+    }
+}
+
+/* ===== ANIMATION ===== */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.styled-table tbody tr {
+    animation: slideIn 0.3s ease forwards;
+}
+
+.styled-table tbody tr:nth-child(1) { animation-delay: 0.1s; }
+.styled-table tbody tr:nth-child(2) { animation-delay: 0.2s; }
+.styled-table tbody tr:nth-child(3) { animation-delay: 0.3s; }
+.styled-table tbody tr:nth-child(4) { animation-delay: 0.4s; }
+.styled-table tbody tr:nth-child(5) { animation-delay: 0.5s; }
+
+/* ===== SCROLLBAR STYLING ===== */
+.styled-table::-webkit-scrollbar {
+    height: 8px;
+}
+
+.styled-table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.styled-table::-webkit-scrollbar-thumb {
+    background: #6B4423;
+    border-radius: 10px;
+}
+
+.styled-table::-webkit-scrollbar-thumb:hover {
+    background: #8B5A3C;
+}
