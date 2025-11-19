@@ -6,7 +6,11 @@
             <div class="navbar-brand">
                 <a href="index.php">
                     <span class="logo-icon">☕</span>
+<<<<<<< HEAD
                     <h1>Radal&Beans</h1>
+=======
+                    <h1>Kedai Kopi</h1>
+>>>>>>> ca4bf91e86e3b501613d1d4fba9794659459ca55
                 </a>
             </div>
             <nav class="navbar-menu">
