@@ -6,7 +6,7 @@
             <div class="navbar-brand">
                 <a href="index.php">
                     <span class="logo-icon">☕</span>
-                    <h1>Kedai Kopi</h1>
+                    <h1>Radal&Beans</h1>
                 </a>
             </div>
             <nav class="navbar-menu">
