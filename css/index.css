@@ -47,20 +47,10 @@ body {
     font-size: 1.5em; 
 }
 
-.navbar-brand a .logo-icon {
-    font-size: 2em; 
-    margin: 0; 
-}
-
 .navbar-brand {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-}
-
-.logo-icon {
-    font-size: 2rem;
-    animation: rotate 3s ease-in-out infinite;
 }
 
 .navbar h1 {
@@ -602,6 +592,9 @@ body {
     gap: 1rem;
     justify-content: center;
     margin-top: 1.5rem;
+    height: 50px;    
+    width: 270px;
+    justify-content: flex-end;
 }
 
 .btn-cancel {
@@ -762,7 +755,7 @@ body {
   transform: translateY(-3px);
 }
 
-/* Modal styles (qty & error) */
+/* modal styles (qty & error) */
 .modal {
   display: none; /* JS toggles */
   position: fixed;

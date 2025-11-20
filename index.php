@@ -99,7 +99,7 @@ $result_categories = $conn->query("SELECT id, nama_kategori FROM categories ORDE
                                 <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
                                 <input type="hidden" name="quantity" value="1" class="qty-hidden">
                                 <button type="button" class="btn btn-add-cart" onclick="<?php echo $is_logged_in ? "openQtyModal(this, '" . htmlspecialchars($row['nama_produk']) . "')" : "showLoginError()"; ?>">
-                                    <span>🛒</span> Tambah ke Keranjang
+                                    Tambah ke Keranjang
                                 </button>
                             </form>
                         </div>
@@ -108,7 +108,7 @@ $result_categories = $conn->query("SELECT id, nama_kategori FROM categories ORDE
                 }
             } else { 
                 echo "<div class='no-products'>";
-                echo "<p>😔 Tidak ada produk dalam kategori ini.</p>";
+                echo "<p>Tidak ada produk dalam kategori ini.</p>";
                 echo "</div>";
             }
             $stmt->close();
