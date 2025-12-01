@@ -15,11 +15,11 @@ if (!empty($cart)) {
     $product_ids = array_keys($cart);
     $ids_string = implode(',', $product_ids);
     
-    // Ambil data produk yang ada di keranjang
+    // Ambil data produk
     $sql = "SELECT id, nama_produk, harga, gambar_url FROM products WHERE id IN ($ids_string)";
     $result = $conn->query($sql);
     
-    if ($result->num_rows > 0) {
+    if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $quantity = $cart[$row['id']];
             $subtotal = $row['harga'] * $quantity;
@@ -37,7 +37,7 @@ if (!empty($cart)) {
 <html lang="id">
 <head>
     <title>Keranjang Belanja - Kedai Kopi</title>
-     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/cart.css">
 </head>
 <body>
@@ -45,8 +45,10 @@ if (!empty($cart)) {
 
     <main class="container">
         <?php if (empty($cart_products)): ?>
-            <h2>Keranjang Anda Kosong</h2>
-            <p>Silakan kembali ke <a href="index.php">halaman produk</a> untuk berbelanja.</p>
+            <div class="empty-cart">
+                <h2>Keranjang Anda Kosong</h2>
+                <p>Silakan kembali ke <a href="index.php">halaman produk</a> untuk berbelanja.</p>
+            </div>
         <?php else: ?>
             <table class="styled-table">
                 <thead>
@@ -61,21 +63,21 @@ if (!empty($cart)) {
                 <tbody>
                     <?php foreach ($cart_products as $product): ?>
                     <tr>
-                        <td>
+                        <td data-label="Produk">
                             <img src="<?php echo htmlspecialchars($product['gambar_url']); ?>" alt="" width="50" style="vertical-align: middle; margin-right: 10px;">
                             <?php echo htmlspecialchars($product['nama_produk']); ?>
                         </td>
-                        <td>Rp <?php echo number_format($product['harga'], 0, ',', '.'); ?></td>
-                        <td>
-                            <form action="cart_action.php" method="POST" style="display: inline;">
-                                <input type="hidden" name="action" value="update">
-                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                <input type="number" name="quantity" value="<?php echo $product['quantity']; ?>" min="0" style="width: 60px;">
-                                <button type="submit" class="btn">Update</button>
-                            </form>
+                        <td data-label="Harga">Rp <?php echo number_format($product['harga'], 0, ',', '.'); ?></td>
+                        <td data-label="Jumlah">
+                            <input type="number" 
+                                   class="quantity-input" 
+                                   data-id="<?php echo $product['id']; ?>" 
+                                   value="<?php echo $product['quantity']; ?>" 
+                                   min="1" 
+                                   style="width: 60px;">
                         </td>
-                        <td>Rp <?php echo number_format($product['subtotal'], 0, ',', '.'); ?></td>
-                        <td>
+                        <td data-label="Subtotal" class="subtotal">Rp <?php echo number_format($product['subtotal'], 0, ',', '.'); ?></td>
+                        <td data-label="Aksi">
                             <form action="cart_action.php" method="POST" style="display: inline;">
                                 <input type="hidden" name="action" value="remove">
                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
@@ -88,7 +90,7 @@ if (!empty($cart)) {
                 <tfoot>
                     <tr>
                         <td colspan="3" style="text-align: right; font-weight: bold;">Total Belanja:</td>
-                        <td colspan="2" style="font-weight: bold; font-size: 1.2em;">Rp <?php echo number_format($total_harga, 0, ',', '.'); ?></td>
+                        <td colspan="2" style="font-weight: bold; font-size: 1.2em;" id="cart-total">Rp <?php echo number_format($total_harga, 0, ',', '.'); ?></td>
                     </tr>
                 </tfoot>
             </table>
@@ -103,5 +105,7 @@ if (!empty($cart)) {
     <footer>
     <?php include 'template/footer.html' ?>
     </footer>
+
+    <script src="javascript/cart.js"></script>
 </body>
 </html>
