@@ -1,9 +1,3 @@
-Tentu\! Berdasarkan file-file yang Anda unggah, proyek ini adalah sebuah aplikasi **E-commerce Kedai Kopi Online** bernama **Radal\&Beans**.
-
-Berikut adalah isi file `README.md` yang menarik dan profesional:
-
------
-
 # ☕ **Radal\&Beans: E-Commerce Kedai Kopi Online**
 
 [](https://github.com/CallMeSon/Project-Pemweb)
