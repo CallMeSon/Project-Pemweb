@@ -99,7 +99,3 @@ Untuk pengujian fitur e-commerce:
 Proyek dikembangkan oleh **[@CallMeSon](https://www.google.com/search?q=https://github.com/CallMeSon)**.
 
 Silakan ajukan **Issue** jika Anda menemukan *bug* atau memiliki saran perbaikan\!
-
-<br>
-&gt; *&amp;copy; 2024 Radal&amp;Beans. Dibuat dengan semangat secangkir kopi terbaik.*
----
