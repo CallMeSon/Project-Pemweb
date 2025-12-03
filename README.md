@@ -90,7 +90,7 @@ Untuk pengujian fitur e-commerce:
 
 | Role | Username | Password |
 | :--- | :--- | :--- |
-| **Admin/User** | `Admin` | `123445` (Hash ada di DB, tapi ini data awal) |
+| **Admin/User** | `Admin` | `admin123` (Hash ada di DB, tapi ini data awal) |
 
 -----
 
