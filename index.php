@@ -41,7 +41,7 @@ $result_categories = $conn->query("SELECT id, nama_kategori FROM categories ORDE
     <section class="hero-banner">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Selamat Datang di Kedai Kopi</h1>
+            <h1 class="hero-title">Selamat Datang di Radal&Beans</h1>
             <p class="hero-subtitle">Nikmati secangkir kebahagiaan dengan kopi pilihan terbaik kami</p>
             <a href="#produk" class="btn btn-hero">Lihat Menu</a>
         </div>

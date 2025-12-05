@@ -13,19 +13,6 @@ $user_id = $_SESSION['user_id'];
 $message = '';
 $message_type = '';
 
-// PROSES UPDATE STATUS PESANAN
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selesai'])) {
-    $order_id = intval($_POST['order_id']);
-    
-    $stmt_update = $conn->prepare("UPDATE orders SET status_pesanan = 'Selesai' WHERE id = ? AND user_id = ?");
-    $stmt_update->bind_param("ii", $order_id, $user_id);
-    if ($stmt_update->execute()) {
-        $message = "Pesanan berhasil diselesaikan! Silakan tulis review.";
-        $message_type = "success";
-    }
-    $stmt_update->close();
-}
-
 // PROSES SUBMIT REVIEW
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
     $order_id = intval($_POST['order_id']);
@@ -78,7 +65,7 @@ $stmt->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesanan Saya - Kedai Kopi</title>
+    <title>Pesanan Saya - Radal&Beans</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/pesanan.css">
 </head>
@@ -186,10 +173,6 @@ $stmt->close();
                         <?php if ($pesanan['status_pesanan'] !== 'Selesai'): ?>
                             <form method="POST" style="display: inline;">
                                 <input type="hidden" name="order_id" value="<?php echo $pesanan['id']; ?>">
-                                <button type="submit" name="selesai" class="btn btn-success btn-small" 
-                                        onclick="return confirm('Tandai pesanan sebagai selesai?')">
-                                    ✓ Pesanan Selesai
-                                </button>
                             </form>
                         <?php endif; ?>
                         
@@ -272,13 +255,6 @@ $stmt->close();
             <?php endforeach; ?>
         <?php endif; ?>
         
-        <form id="checkoutForm" method="POST">
-            <button type="submit" class="btn" style="width: 100%; font-size: 1.3em; padding: 20px;">
-                Konfirmasi & Buat Pesanan
-            </button>
-        </form>
-    </div>
-
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -359,14 +335,12 @@ $stmt->close();
         function showModal() {
             document.getElementById("orderModal").style.display = "block";
         }
-
-        // Tangani event klik pada form checkout
-        document.getElementById("checkoutForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Mencegah pengiriman form
-            showModal(); // Tampilkan modal
-        });
     </script>
+
 </body>
+
+ 
+
 </html>
 
 <?php $conn->close(); ?>

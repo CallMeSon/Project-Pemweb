@@ -160,7 +160,7 @@ function toggleMobileMenu() {
 }
 
 // ===== CONSOLE GREETING =====
-console.log('%c☕ Selamat datang di Kedai Kopi!', 'font-size: 20px; color: #6B4423; font-weight: bold;');
+console.log('%cSelamat datang di Radal&Beans!', 'font-size: 20px; color: #6B4423; font-weight: bold;');
 console.log('%cNikmati pengalaman berbelanja kopi terbaik!', 'font-size: 14px; color: #8B5A3C;');
 
 

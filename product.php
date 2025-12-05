@@ -67,7 +67,7 @@ if ($is_logged_in) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($product['nama_produk']); ?> - Kedai Kopi</title>
+    <title><?php echo htmlspecialchars($product['nama_produk']); ?> - Radal&Beans</title>
     <link rel="stylesheet" href="css/product.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="javascript/index.js"></script>
