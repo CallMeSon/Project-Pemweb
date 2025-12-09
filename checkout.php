@@ -59,7 +59,7 @@ if (!empty($cart)) {
 <body>
     <header class="navbar">
         <div class="navbar-container">
-            <h1>💳 Konfirmasi Checkout</h1>
+            <h1>Konfirmasi Checkout</h1>
             <nav>
                 <a href="cart.php" class="btn">← Kembali ke Keranjang</a>
             </nav>

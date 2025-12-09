@@ -114,7 +114,6 @@ $conn->close();
             <!-- FORM LOGIN -->
             <div id="login-form" class="auth-form active">
                 <h2 class="auth-title">Selamat Datang Kembali</h2>
-                <p class="auth-subtitle">Silakan login untuk melanjutkan</p>
                 <form action="auth.php" method="POST">
                     <div class="form-group">
                         <label for="username">Username</label>
